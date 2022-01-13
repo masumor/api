@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Qiita API</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <div class="search_area">
+    <div id="logo"><img src="./images/logo.png" class="logo_image"></div>
+    <input type="text" id="search_text">
+    <button id="search_button">検索</button>
+    <div id="loading" style="display: none;"><img src="./images/circle.gif" class="loading_icon"></div>
+  <div id="result"></div>
+  </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  //8333630f8b20c0ef53eb7d3b450b19d8c63ad8dc
+  $("#search_button").on("click", function() {
+    // 検索ボックスの文字を取得する
+    let searchText = $("#search_text").val();
+    // みなさんのtoken
+    let token = "8333630f8b20c0ef53eb7d3b450b19d8c63ad8dc"
+    // searchTextに入ってきた文字列を使ってaxiosのURLを組み立てる
+    // その上で、axios.getを使ってAPIにアクセスする
+    axios.get(`https://qiita.com/api/v2/items?page=1&per_page=20&query=${searchText}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    })
+    .then(function(response) {
+      // response.dataでいい感じにサマリにしてくれた配列を返してもらえるようになる
+      // console.log(response.data);
+      let data = response.data;
+      let str = "";
+      for(let i = 0; i < data.length; i++) {
+        str += `<a href="${data[i].url}">${data[i].title}</a><br>`
+        // <a href="https://qiita.com/items/hoge">なんかのタイトル</a><br>
+        // <a href="https://qiita.com/items/hoge">なんかのタイトル</a><br> ...
+      }
+      $("#result").html(str);
+    })
+  });
+</script>
+</body>
+</html>
