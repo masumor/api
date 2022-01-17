@@ -13,9 +13,6 @@
   <div id="result"></div>
   </div>
 
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
 
     //現在の天気を取得する場所の名前
@@ -54,12 +51,13 @@
 
         console.log("現在の" + city + "の天気は" + weather);
         console.log("気温は" + temp + "度です。");
-
+      
+        $("#result").text("現在の" + city + "の天気は" + weather);
     }
 
 
 // //API KYES = bf47ebf03220d8ed8347a33f8c87ed2b
 
-//   </script>
-//   </body>
-//   </html>
+  </script>
+  </body>
+  </html>
